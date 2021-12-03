@@ -1,18 +1,32 @@
 package br.com.fabiofnc.apileilao.entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "produtos")
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private BigDecimal valorInicial;
     private NegociaçaoDoProduto negociaçaoDoProduto = NegociaçaoDoProduto.ABERTO;
     private final LocalDate dataDeLeilao = LocalDate.now();
+    @OneToMany(mappedBy = "produto")
     private List<Proposta> propostas = new ArrayList<Proposta>();
+    @ManyToOne
     private Usuario donoDoProduto;
+
+    public Produto(String nome, BigDecimal valorInicial, Usuario donoDoProduto) {
+        this.nome = nome;
+        this.valorInicial = valorInicial;
+        this.donoDoProduto = donoDoProduto;
+    }
 
     public String getNome() {
         return nome;

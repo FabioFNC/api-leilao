@@ -12,7 +12,10 @@
 	<artifactId>api-leilao</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api-leilao</name>
-	<description>Projeto para demonstrar o funcionamento de uma API REST no Spring. Github: https://github.com/FabioFNC/api-leilao</description>
+	<description>
+		Projeto para demonstrar o funcionamento de uma API REST no Spring.
+		Github: https://github.com/FabioFNC/api-leilao
+	</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -28,6 +31,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
