@@ -31,7 +31,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDto> pegarUmUsuarios(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDto> pegarUmUsuario(@PathVariable Long id) {
         UsuarioDto usuarioDto = new UsuarioDto(usuarioRepository.getById(id));
         return ResponseEntity.ok().body(usuarioDto);
     }
@@ -54,7 +54,7 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> deletarUsuarios(@PathVariable Long id ) {
+    public ResponseEntity<?> deletarUsuario(@PathVariable Long id ) {
         usuarioRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }

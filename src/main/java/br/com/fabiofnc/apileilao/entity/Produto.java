@@ -15,18 +15,29 @@ public class Produto {
     private Long id;
     private String nome;
     private BigDecimal valorInicial;
+    private String descricao;
     @Enumerated(EnumType.STRING)
     private NegociaçaoDoProduto negociaçaoDoProduto = NegociaçaoDoProduto.ABERTO;
     private final LocalDate dataDeLeilao = LocalDate.now();
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Proposta> propostas = new ArrayList<Proposta>();
     @ManyToOne
     private Usuario donoDoProduto;
+
+    public Produto() {}
 
     public Produto(String nome, BigDecimal valorInicial, Usuario donoDoProduto) {
         this.nome = nome;
         this.valorInicial = valorInicial;
         this.donoDoProduto = donoDoProduto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -51,6 +62,14 @@ public class Produto {
 
     public void setNegociaçaoDoProduto(NegociaçaoDoProduto negociaçaoDoProduto) {
         this.negociaçaoDoProduto = negociaçaoDoProduto;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public List<Proposta> getPropostas() {

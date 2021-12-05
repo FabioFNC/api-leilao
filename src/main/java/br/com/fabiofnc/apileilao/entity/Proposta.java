@@ -12,13 +12,44 @@ public class Proposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private BigDecimal valor;
-    private String Autor;
+    private String autor;
     private String mensagem;
     private final LocalDateTime dataDaProposta = LocalDateTime.now();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Produto produto;
     @ManyToOne
-    private Usuario usuarios;
+    private Usuario usuario;
+
+    public Proposta() {}
+
+    public Proposta(BigDecimal valor, String mensagem, Produto produto, Usuario usuario) {
+        this.valor = valor;
+        this.mensagem = mensagem;
+        this.autor = usuario.getNome();
+        this.mensagem = mensagem;
+        this.produto = produto;
+        this.usuario = usuario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDataDaProposta() {
+        return dataDaProposta;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuarios) {
+        this.usuario = usuarios;
+    }
 
     public BigDecimal getValor() {
         return valor;
@@ -29,11 +60,11 @@ public class Proposta {
     }
 
     public String getAutor() {
-        return Autor;
+        return autor;
     }
 
     public void setAutor(String autor) {
-        Autor = autor;
+        autor = autor;
     }
 
     public String getMensagem() {
