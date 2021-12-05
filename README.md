@@ -32,7 +32,7 @@
 ## 📌 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [Java](https://www.oracle.com/java/technologies/downloads/) e o [Mavem](https://maven.apache.org/download.cgi). 
+[Git](https://git-scm.com), [Java](https://www.oracle.com/java/technologies/downloads/), [PostgreSQL](https://www.postgresql.org/) e o [Mavem](https://maven.apache.org/download.cgi). 
 Além disto é bom ter um editor para trabalhar com o código como o [IntelliJ](https://www.jetbrains.com/pt-br/idea/download/#section=window) por exemplo.
 
 ### 🎲 Clonando o projeto
