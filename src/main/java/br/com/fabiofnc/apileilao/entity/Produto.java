@@ -15,6 +15,7 @@ public class Produto {
     private Long id;
     private String nome;
     private BigDecimal valorInicial;
+    @Enumerated(EnumType.STRING)
     private NegociaçaoDoProduto negociaçaoDoProduto = NegociaçaoDoProduto.ABERTO;
     private final LocalDate dataDeLeilao = LocalDate.now();
     @OneToMany(mappedBy = "produto")
