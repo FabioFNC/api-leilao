@@ -49,7 +49,7 @@ public class ProdutoController{
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<ProdutoDto> atualizarProduto(@PathVariable Long id, @RequestBody @Valid AtualizarProdutoForm form) {
-        Produto produto = form.atualizarProduto(id, produtoRepository);
+        Produto produto = form.atualizar(id, produtoRepository);
         return ResponseEntity.ok().body(new ProdutoDto(produto));
     }
 

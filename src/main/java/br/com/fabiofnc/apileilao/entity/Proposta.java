@@ -1,6 +1,12 @@
 package br.com.fabiofnc.apileilao.entity;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -26,7 +32,6 @@ public class Proposta {
         this.valor = valor;
         this.mensagem = mensagem;
         this.autor = usuario.getNome();
-        this.mensagem = mensagem;
         this.produto = produto;
         this.usuario = usuario;
     }
