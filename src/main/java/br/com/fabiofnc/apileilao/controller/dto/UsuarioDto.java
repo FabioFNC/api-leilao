@@ -42,7 +42,7 @@ public class UsuarioDto {
         this.email = email;
     }
 
-    public static List<UsuarioDto> converter(List<Usuario> usuarios) {
+    public static List<UsuarioDto> converterTodos(List<Usuario> usuarios) {
         return usuarios.stream().map(UsuarioDto::new).collect(Collectors.toList());
     }
 

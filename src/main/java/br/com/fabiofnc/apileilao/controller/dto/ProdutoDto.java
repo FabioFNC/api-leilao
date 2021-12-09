@@ -1,6 +1,5 @@
 package br.com.fabiofnc.apileilao.controller.dto;
 
-import br.com.fabiofnc.apileilao.entity.NegociaçaoDoProduto;
 import br.com.fabiofnc.apileilao.entity.Produto;
 import br.com.fabiofnc.apileilao.entity.Proposta;
 
@@ -65,10 +64,6 @@ public class ProdutoDto {
 
     public static List<ProdutoDto> converterTodos(List<Produto> produtos) {
         return produtos.stream().map(ProdutoDto::new).collect(Collectors.toList());
-    }
-
-    public static ProdutoDto converterUm(Produto produto) {
-        return new ProdutoDto(produto);
     }
 
 }

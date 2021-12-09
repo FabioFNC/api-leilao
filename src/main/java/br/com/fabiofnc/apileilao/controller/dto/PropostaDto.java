@@ -52,8 +52,4 @@ public class PropostaDto {
         return propostas.stream().map(PropostaDto::new).collect(Collectors.toList());
     }
 
-    public static PropostaDto converterUma(Proposta proposta) {
-        return new PropostaDto(proposta);
-    }
-
 }

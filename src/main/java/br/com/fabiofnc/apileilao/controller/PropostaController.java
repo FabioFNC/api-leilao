@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/propostas")
@@ -36,8 +37,10 @@ public class PropostaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropostaDto> pegarTodasPropostas(@PathVariable Long id) {
-        Proposta proposta = propostaRepository.getById(id);
-        return ResponseEntity.ok().body(PropostaDto.converterUma(proposta));
+        Optional<Proposta> optionalProposta = propostaRepository.findById(id);
+        return optionalProposta.map(proposta ->
+                ResponseEntity.ok().body(new PropostaDto(proposta)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()
@@ -46,22 +49,30 @@ public class PropostaController {
         Proposta proposta = form.converter(produtoRepository, usuarioRepository);
         propostaRepository.save(proposta);
         URI uri = uriBuilder.path("/api/propostas/{id}").buildAndExpand(proposta.getId()).toUri();
-        return ResponseEntity.created(uri).body(PropostaDto.converterUma(proposta));
+        return ResponseEntity.created(uri).body(new PropostaDto(proposta));
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<PropostaDto> atualizarProposta(@PathVariable Long id, @RequestBody @Valid AtualizarPropostaForm form) {
-        Proposta proposta = form.atualizar(id, propostaRepository);
-        propostaRepository.save(proposta);
-        return ResponseEntity.ok().body(PropostaDto.converterUma(proposta));
+        Optional<Proposta> optionalProposta = propostaRepository.findById(id);
+        if (optionalProposta.isPresent()) {
+            Proposta proposta = form.atualizar(id, propostaRepository);
+            propostaRepository.save(proposta);
+            return ResponseEntity.ok().body(new PropostaDto(proposta));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deletarProposta(@PathVariable Long id) {
-        propostaRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        Optional<Proposta> optionalProposta = propostaRepository.findById(id);
+        if (optionalProposta.isPresent()) {
+            propostaRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

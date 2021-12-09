@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -27,13 +28,15 @@ public class UsuarioController {
         Usuario usuario = new Usuario("teste", "teste@gmail.com", "teste123");
         usuarioRepository.save(usuario);
         List<Usuario> usuarios = new ArrayList<Usuario>(usuarioRepository.findAll());
-        return ResponseEntity.ok().body(UsuarioDto.converter(usuarios));
+        return ResponseEntity.ok().body(UsuarioDto.converterTodos(usuarios));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDto> pegarUmUsuario(@PathVariable Long id) {
-        UsuarioDto usuarioDto = new UsuarioDto(usuarioRepository.getById(id));
-        return ResponseEntity.ok().body(usuarioDto);
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+        return optionalUsuario.map(usuario ->
+                ResponseEntity.ok().body(new UsuarioDto(usuario)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -48,15 +51,23 @@ public class UsuarioController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<UsuarioDto> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioForm form ) {
-        Usuario usuario = form.atualizar(id, usuarioRepository);
-        return ResponseEntity.ok().body(new UsuarioDto(usuario));
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = form.atualizar(id, usuarioRepository);
+            return ResponseEntity.ok().body(new UsuarioDto(usuario));
+        }
+        return  ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deletarUsuario(@PathVariable Long id ) {
-        usuarioRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+        if (optionalUsuario.isPresent()) {
+            usuarioRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return  ResponseEntity.notFound().build();
     }
 
 

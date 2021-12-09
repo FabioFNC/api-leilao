@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -33,8 +34,10 @@ public class ProdutoController{
 
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoDto> pegarUmProduto(@PathVariable Long id) {
-        Produto produto = produtoRepository.getById(id);
-        return ResponseEntity.ok().body(ProdutoDto.converterUm(produto));
+        Optional<Produto> optionalProduto = produtoRepository.findById(id);
+        return optionalProduto.map(produto ->
+                ResponseEntity.ok().body(new ProdutoDto(produto)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -49,15 +52,22 @@ public class ProdutoController{
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<ProdutoDto> atualizarProduto(@PathVariable Long id, @RequestBody @Valid AtualizarProdutoForm form) {
-        Produto produto = form.atualizar(id, produtoRepository);
-        return ResponseEntity.ok().body(new ProdutoDto(produto));
+        Optional<Produto> optionalProduto = produtoRepository.findById(id);
+        if (optionalProduto.isPresent()) {
+            Produto produto = form.atualizar(id, produtoRepository);
+            return ResponseEntity.ok().body(new ProdutoDto(produto));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deletarProduto(@PathVariable Long id) {
-        produtoRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        Optional<Produto> optionalProduto = produtoRepository.findById(id);
+        if (optionalProduto.isPresent()) {
+            produtoRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
-
 }
