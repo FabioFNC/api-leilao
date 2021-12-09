@@ -2,6 +2,7 @@ package br.com.fabiofnc.apileilao.controller.dto;
 
 import br.com.fabiofnc.apileilao.entity.Usuario;
 import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,8 +43,8 @@ public class UsuarioDto {
         this.email = email;
     }
 
-    public static List<UsuarioDto> converterTodos(List<Usuario> usuarios) {
-        return usuarios.stream().map(UsuarioDto::new).collect(Collectors.toList());
+    public static Page<UsuarioDto> converterTodos(Page<Usuario> usuarios) {
+        return usuarios.map(UsuarioDto::new);
     }
 
 }

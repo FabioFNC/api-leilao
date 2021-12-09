@@ -1,10 +1,9 @@
 package br.com.fabiofnc.apileilao.controller.dto;
 
 import br.com.fabiofnc.apileilao.entity.Proposta;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class PropostaDto {
 
@@ -48,8 +47,8 @@ public class PropostaDto {
         return idDoUsuarioRelacionado;
     }
 
-    public static List<PropostaDto> converterTodas(List<Proposta> propostas) {
-        return propostas.stream().map(PropostaDto::new).collect(Collectors.toList());
+    public static Page<PropostaDto> converterTodas(Page<Proposta> propostas) {
+        return propostas.map(PropostaDto::new);
     }
 
 }

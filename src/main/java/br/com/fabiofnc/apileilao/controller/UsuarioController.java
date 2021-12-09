@@ -5,6 +5,10 @@ import br.com.fabiofnc.apileilao.controller.form.UsuarioForm;
 import br.com.fabiofnc.apileilao.entity.Usuario;
 import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +28,9 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDto>> pegarUsuarios() {
-        Usuario usuario = new Usuario("teste", "teste@gmail.com", "teste123");
-        usuarioRepository.save(usuario);
-        List<Usuario> usuarios = new ArrayList<Usuario>(usuarioRepository.findAll());
+    public ResponseEntity<Page<UsuarioDto>> pegarUsuarios(@PageableDefault(page=0, size=10, sort="id",
+                                                            direction = Sort.Direction.ASC) Pageable paginacao) {
+        Page<Usuario> usuarios = usuarioRepository.findAll(paginacao);
         return ResponseEntity.ok().body(UsuarioDto.converterTodos(usuarios));
     }
 

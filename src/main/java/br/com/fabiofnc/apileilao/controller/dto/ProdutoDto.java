@@ -2,6 +2,7 @@ package br.com.fabiofnc.apileilao.controller.dto;
 
 import br.com.fabiofnc.apileilao.entity.Produto;
 import br.com.fabiofnc.apileilao.entity.Proposta;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -62,8 +63,8 @@ public class ProdutoDto {
         return idDasPropostas;
     }
 
-    public static List<ProdutoDto> converterTodos(List<Produto> produtos) {
-        return produtos.stream().map(ProdutoDto::new).collect(Collectors.toList());
+    public static Page<ProdutoDto> converterTodos(Page<Produto> produtos) {
+        return produtos.map(ProdutoDto::new);
     }
 
 }

@@ -7,6 +7,10 @@ import br.com.fabiofnc.apileilao.entity.Produto;
 import br.com.fabiofnc.apileilao.repository.ProdutoRepository;
 import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +31,9 @@ public class ProdutoController{
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ResponseEntity<List<ProdutoDto>> pegarProdutos() {
-        List<Produto> produtos = produtoRepository.findAll();
+    public ResponseEntity<Page<ProdutoDto>> pegarProdutos(@PageableDefault(page=0, size=10, sort="id",
+                                                            direction = Sort.Direction.ASC) Pageable paginacao) {
+        Page<Produto> produtos = produtoRepository.findAll(paginacao);
         return ResponseEntity.ok().body(ProdutoDto.converterTodos(produtos));
     }
 
