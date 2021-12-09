@@ -46,7 +46,7 @@ $ git clone https://github.com/FabioFNC/api-leilao.git
 
 ## ✨ Features
 
-- [ ] 🗂️ CRUD das entidades
+- [X] 🗂️ CRUD das entidades
 - [ ] 🕵️‍♂️ Criptografia de informações sensíveis
 - [ ] 💾 Paginação e ordenação de recursos
 - [ ] 🗃️ Cache
