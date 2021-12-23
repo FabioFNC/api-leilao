@@ -1,21 +1,11 @@
 package br.com.fabiofnc.apileilao.config.security;
 
-<<<<<<< Updated upstream
 import br.com.fabiofnc.apileilao.entity.Usuario;
 import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
-=======
->>>>>>> Stashed changes
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-<<<<<<< Updated upstream
-=======
-import br.com.fabiofnc.apileilao.entity.Usuario;
-import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
 import br.com.fabiofnc.apileilao.service.TokenService;
-
->>>>>>> Stashed changes
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,11 +29,6 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
         if (valido) {
             autenticarCliente(token);
         }
-<<<<<<< Updated upstream
-        //Se nao tiver valido o spring bai barrar a requisicao
-=======
-        //Se não estiver valido o spring vai barrar a requisicao
->>>>>>> Stashed changes
         filterChain.doFilter(request, response);
     }
 
@@ -53,11 +38,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
         Usuario usuario = usuarioRepository.findById(idUsuario).get();
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                 usuario, null, usuario.getAuthorities());
-<<<<<<< Updated upstream
-        //Considera que o usuario esta autenticado
-=======
         //Considerar que o usuario esta autenticado
->>>>>>> Stashed changes
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
