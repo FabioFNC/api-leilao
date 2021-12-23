@@ -2,7 +2,10 @@ package br.com.fabiofnc.apileilao.controller;
 
 import javax.validation.Valid;
 
+<<<<<<< Updated upstream
 import br.com.fabiofnc.apileilao.config.security.TokenService;
+=======
+>>>>>>> Stashed changes
 import br.com.fabiofnc.apileilao.controller.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fabiofnc.apileilao.controller.form.LoginForm;
+<<<<<<< Updated upstream
+=======
+import br.com.fabiofnc.apileilao.service.TokenService;
+>>>>>>> Stashed changes
 
 @RestController
 @RequestMapping("/api/auth")

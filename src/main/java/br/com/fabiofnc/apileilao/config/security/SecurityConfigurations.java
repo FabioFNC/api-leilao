@@ -1,6 +1,11 @@
 package br.com.fabiofnc.apileilao.config.security;
 
 import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
+<<<<<<< Updated upstream
+=======
+import br.com.fabiofnc.apileilao.service.TokenService;
+
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,7 +53,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
         //Permitindo o acesso as seguintes rotas:
+<<<<<<< Updated upstream
         .antMatchers(HttpMethod.GET ,"/api/*").permitAll()
+=======
+        .antMatchers(HttpMethod.GET ,"/api/**").permitAll()
+>>>>>>> Stashed changes
         .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
         //Para o resto das rotas e necesario a autenticacao.
         .anyRequest().authenticated()

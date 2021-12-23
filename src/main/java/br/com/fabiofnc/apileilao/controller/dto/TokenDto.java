@@ -17,5 +17,8 @@ public class TokenDto {
     public String getTipoDeAutenticacao() {
         return tipoDeAutenticacao;
     }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }
