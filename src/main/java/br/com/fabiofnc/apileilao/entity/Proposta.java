@@ -69,7 +69,7 @@ public class Proposta {
     }
 
     public void setAutor(String autor) {
-        autor = autor;
+        this.autor = autor;
     }
 
     public String getMensagem() {

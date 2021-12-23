@@ -1,12 +1,7 @@
 package br.com.fabiofnc.apileilao.controller.dto;
 
 import br.com.fabiofnc.apileilao.entity.Usuario;
-import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class UsuarioDto {
 
     private Long id;

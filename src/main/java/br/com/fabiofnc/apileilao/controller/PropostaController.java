@@ -19,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,8 +33,8 @@ public class PropostaController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ResponseEntity<Page<PropostaDto>> pegarTodasPropostas(@PageableDefault(page=0, size=10, sort="id",
-                                                                   direction = Sort.Direction.ASC) Pageable paginacao) {
+    public ResponseEntity<Page<PropostaDto>> pegarTodasPropostas(
+            @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.ASC) Pageable paginacao) {
         Page<Proposta> propostas = propostaRepository.findAll(paginacao);
         return ResponseEntity.ok().body(PropostaDto.converterTodas(propostas));
     }
