@@ -21,14 +21,6 @@
 - [🍃 Spring](https://spring.io/)
 - [🐘 Postgre](https://www.postgresql.org/)
 
-## 📦 Dependencias usadas do Spring
-
-- **DATA-JPA** (Para aumentar a produtividade da aplicação sem precisar executar querry's avançadas, ele implementa anotações que facilitam)
-- **Validation** (Muito importe na questão de validações de formulários, com ele podemos definir regras ou utilizar suas anotações por padrão)
-- **Web** (Foi utilizado para manusear aplicações WEB, na qual teve utilização os métodos GET, POST, PUT, DELETE)
-- **DevTools** (Útil em questões de auxiliar no desenvolvimento)
-- **PostgreSQL** (Foi escolhido por uma questão pessoal de adquirir conhecimento com bancos em PostgreSQL)
-
 ## 📌 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
