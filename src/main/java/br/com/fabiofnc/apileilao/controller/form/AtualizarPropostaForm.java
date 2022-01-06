@@ -34,10 +34,12 @@ public class AtualizarPropostaForm {
     }
 
 
-    public Proposta atualizar(Long id, PropostaRepository propostaRepository) {
-        Proposta proposta = propostaRepository.getById(id);
+    public void atualizar(Proposta proposta) {
         proposta.setValor(this.valor);
         proposta.setMensagem(this.mensagem);
-        return proposta;
+    }
+
+    public Proposta converter(Long id, PropostaRepository repository) {
+        return repository.getById(id);
     }
 }

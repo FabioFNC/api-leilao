@@ -13,7 +13,10 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "produtos")
@@ -29,7 +32,7 @@ public class Produto {
     private NegociaçaoDoProduto negociaçaoDoProduto = NegociaçaoDoProduto.ABERTO;
     private final LocalDate dataDeLeilao = LocalDate.now();
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-    private List<Proposta> propostas = new ArrayList<Proposta>();
+    private List<Proposta> propostas = new ArrayList<>();
     @ManyToOne
     private Usuario donoDoProduto;
 
@@ -39,6 +42,19 @@ public class Produto {
         this.nome = nome;
         this.valorInicial = valorInicial;
         this.donoDoProduto = donoDoProduto;
+    }
+
+    public Optional<BigDecimal> maiorProposta() {
+        List<BigDecimal> valorDasPropostas = this.propostas.stream()
+                .map(Proposta::getValor).collect(Collectors.toList());
+        return valorDasPropostas.stream().max(Comparator.naturalOrder());
+    }
+
+    public Optional<BigDecimal> maiorProposta(Long idProduto, Long idUsuario) {
+        List<BigDecimal> valorDasPropostas = this.propostas.stream()
+                .filter(v -> v.getUsuario().getId().equals(idUsuario) && v.getProduto().getId().equals(idProduto))
+                .map(Proposta::getValor).collect(Collectors.toList());
+        return valorDasPropostas.stream().max(Comparator.naturalOrder());
     }
 
     public Long getId() {
@@ -100,4 +116,5 @@ public class Produto {
     public void setDonoDoProduto(Usuario donoDoProduto) {
         this.donoDoProduto = donoDoProduto;
     }
+
 }
