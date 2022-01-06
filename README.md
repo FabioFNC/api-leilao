@@ -21,21 +21,13 @@
 - [🍃 Spring](https://spring.io/)
 - [🐘 Postgre](https://www.postgresql.org/)
 
-## 📦 Dependencias usadas do Spring
-
-- **DATA-JPA** (Para aumentar a produtividade da aplicação sem precisar executar querry's avançadas, ele implementa anotações que facilitam)
-- **Validation** (Muito importe na questão de validações de formulários, com ele podemos definir regras ou utilizar suas anotações por padrão)
-- **Web** (Foi utilizado para manusear aplicações WEB, na qual teve utilização os métodos GET, POST, PUT, DELETE)
-- **DevTools** (Útil em questões de auxiliar no desenvolvimento)
-- **PostgreSQL** (Foi escolhido por uma questão pessoal de adquirir conhecimento com bancos em PostgreSQL)
-
 ## 📌 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Java](https://www.oracle.com/java/technologies/downloads/), [PostgreSQL](https://www.postgresql.org/) e o [Mavem](https://maven.apache.org/download.cgi). 
 Além disto é bom ter um editor para trabalhar com o código como o [IntelliJ](https://www.jetbrains.com/pt-br/idea/download/#section=window) por exemplo.
 
-### 🎲 Clonando o projeto
+## 🎲 Clonando o projeto
 
 ```bash
 # Clone este repositório
@@ -44,9 +36,17 @@ $ git clone https://github.com/FabioFNC/api-leilao.git
 # Lembre-se que o servidor inciará na porta:8080 - acesse <http://localhost:8080>
 ```
 
+## 📜 Documentação
+
+```bash
+http://localhost:8080/swagger-ui/
+
+# Lembre-se de gerar o token de autenticação para usar os métodos de requisição DELETE, PUT e POST.
+# Obs.: Os GETTERS estão publicos.
+```
+
 ## ✨ Features
 
 - [X] 🗂️ CRUD das entidades
 - [X] 💾 Paginação e ordenação de recursos
-- [ ] 🗃️ Cache
-- [ ] 🕵️‍♂️ Criptografia de informações sensíveis
+- [X] 🗃️ Documentação
