@@ -42,13 +42,10 @@ public class UsuarioForm {
         return new Usuario(this.nome, this.email, this.senha);
     }
 
-    public Usuario atualizar(Long id, UsuarioRepository usuarioRepository) {
-        Usuario usuario = usuarioRepository.getById(id);
+    public void atualizar(Usuario usuario) {
         usuario.setNome(this.nome);
         usuario.setEmail(this.email);
         usuario.setSenha(this.senha);
-        usuarioRepository.save(usuario);
-        return usuario;
     }
 
 }
