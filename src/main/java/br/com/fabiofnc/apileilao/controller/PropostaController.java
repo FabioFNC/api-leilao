@@ -5,7 +5,6 @@ import br.com.fabiofnc.apileilao.controller.form.AtualizarPropostaForm;
 import br.com.fabiofnc.apileilao.controller.form.PropostaForm;
 import br.com.fabiofnc.apileilao.entity.Proposta;
 import br.com.fabiofnc.apileilao.repository.ProdutoRepository;
-import br.com.fabiofnc.apileilao.repository.PropostaRepository;
 import br.com.fabiofnc.apileilao.repository.UsuarioRepository;
 import br.com.fabiofnc.apileilao.service.PropostaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +26,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/propostas")
 public class PropostaController {
-
-    @Autowired
-    private PropostaRepository propostaRepository;
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -43,21 +38,19 @@ public class PropostaController {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private PropostaService propostaService = new PropostaService(propostaRepository);
+    private PropostaService propostaService = new PropostaService();
 
     @GetMapping
     public ResponseEntity<Page<PropostaDto>> pegarTodasPropostas(
             @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.ASC) Pageable paginacao) {
-        Page<Proposta> propostas = propostaRepository.findAll(paginacao);
+        Page<Proposta> propostas = propostaService.findAll(paginacao);
         return ResponseEntity.ok().body(PropostaDto.converterTodas(propostas));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PropostaDto> pegarTodasPropostas(@PathVariable Long id) {
-        Optional<Proposta> optionalProposta = propostaRepository.findById(id);
-        return optionalProposta.map(proposta ->
-                ResponseEntity.ok().body(new PropostaDto(proposta)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Proposta proposta = propostaService.findById(id);
+        return ResponseEntity.ok().body(new PropostaDto(proposta));
     }
 
     @PostMapping()
@@ -72,24 +65,15 @@ public class PropostaController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<PropostaDto> atualizarProposta(@PathVariable Long id, @RequestBody @Valid AtualizarPropostaForm form) {
-        Optional<Proposta> optionalProposta = propostaRepository.findById(id);
-        if (optionalProposta.isPresent()) {
-            propostaService.update(id, form);
-            Proposta proposta = form.converter(id, propostaRepository);
-            return ResponseEntity.ok().body(new PropostaDto(proposta));
-        }
-        return ResponseEntity.notFound().build();
+        propostaService.update(id, form);
+        return ResponseEntity.ok().body(new PropostaDto(propostaService.findById(id)));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deletarProposta(@PathVariable Long id) {
-        Optional<Proposta> optionalProposta = propostaRepository.findById(id);
-        if (optionalProposta.isPresent()) {
-            propostaRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+        propostaService.delete(id);
+        return ResponseEntity.ok().build();
     }
-
+    
 }

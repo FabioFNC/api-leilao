@@ -50,13 +50,6 @@ public class Produto {
         return valorDasPropostas.stream().max(Comparator.naturalOrder());
     }
 
-    public Optional<BigDecimal> maiorProposta(Long idProduto, Long idUsuario) {
-        List<BigDecimal> valorDasPropostas = this.propostas.stream()
-                .filter(v -> v.getUsuario().getId().equals(idUsuario) && v.getProduto().getId().equals(idProduto))
-                .map(Proposta::getValor).collect(Collectors.toList());
-        return valorDasPropostas.stream().max(Comparator.naturalOrder());
-    }
-
     public Long getId() {
         return id;
     }
