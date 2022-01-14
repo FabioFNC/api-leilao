@@ -45,13 +45,10 @@ public class AtualizarProdutoForm {
         this.descricao = descricao;
     }
 
-    public Produto atualizar(Long id, ProdutoRepository produtoRepository) {
-        Produto produto = produtoRepository.getById(id);
+    public void atualizar(Produto produto) {
         produto.setNome(this.nome);
         produto.setValorInicial(this.valorInicial);
         produto.setDescricao(this.descricao);
-        produtoRepository.save(produto);
-        return produto;
     }
 
 }
