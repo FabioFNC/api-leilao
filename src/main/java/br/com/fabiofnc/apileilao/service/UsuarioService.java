@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.fabiofnc.apileilao.controller.dto.UsuarioDto;
+import br.com.fabiofnc.apileilao.controller.dto.converter.custom.UsuarioConverter;
 import br.com.fabiofnc.apileilao.controller.form.UsuarioForm;
 import br.com.fabiofnc.apileilao.entity.Usuario;
 import br.com.fabiofnc.apileilao.exception.UsuarioNaoEncontradoException;
@@ -16,8 +18,11 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	public Page<Usuario> findAll(Pageable paginacao) {
-		return usuarioRepository.findAll(paginacao);
+	@Autowired
+	private UsuarioConverter usuarioConverter;
+	
+	public Page<UsuarioDto> findAll(Pageable paginacao) {
+		return usuarioConverter.convertPageToDTO(usuarioRepository.findAll(paginacao));
 	}
 	
 	public Usuario findById(Long id) {

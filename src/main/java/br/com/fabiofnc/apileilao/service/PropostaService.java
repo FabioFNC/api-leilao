@@ -1,5 +1,15 @@
 package br.com.fabiofnc.apileilao.service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import br.com.fabiofnc.apileilao.controller.dto.PropostaDto;
+import br.com.fabiofnc.apileilao.controller.dto.converter.custom.PropostaConverter;
 import br.com.fabiofnc.apileilao.controller.form.AtualizarPropostaForm;
 import br.com.fabiofnc.apileilao.entity.Proposta;
 import br.com.fabiofnc.apileilao.exception.PropostaException;
@@ -7,27 +17,27 @@ import br.com.fabiofnc.apileilao.exception.PropostaInvalida;
 import br.com.fabiofnc.apileilao.exception.PropostaNaoEncontradaException;
 import br.com.fabiofnc.apileilao.repository.PropostaRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-
 @Service
 public class PropostaService {
 
 	@Autowired
     private PropostaRepository propostaRepository;
+	
+	@Autowired
+    private PropostaConverter converter;
 
     
     public Proposta findById(Long id) {
     	return propostaRepository.findById(id).orElseThrow(() -> new PropostaNaoEncontradaException("Proposta de id " + id + " não encontrada."));
     }
     
-    public Page<Proposta> findAll(Pageable paginacao) {
-    	return propostaRepository.findAll(paginacao);
+    public Page<PropostaDto> findAll(Pageable paginacao) {
+    	return propostaRepository.findAll(paginacao).map(p -> converter.convertEntityToDTO(p));
     }
+    
+    public List<Proposta> findAllById(List<Long> ids) {
+    	return propostaRepository.findAllById(ids);
+    } 
 
     public void save(Proposta novaProposta) {
         BigDecimal maiorPropostaAnterior = novaProposta.getProduto().maiorProposta().orElse(new BigDecimal("0"));

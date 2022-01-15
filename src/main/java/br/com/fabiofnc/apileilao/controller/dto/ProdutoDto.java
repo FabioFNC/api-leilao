@@ -1,70 +1,45 @@
 package br.com.fabiofnc.apileilao.controller.dto;
 
-import br.com.fabiofnc.apileilao.entity.Produto;
-import br.com.fabiofnc.apileilao.entity.Proposta;
-import org.springframework.data.domain.Page;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProdutoDto {
+import org.springframework.hateoas.RepresentationModel;
+
+import br.com.fabiofnc.apileilao.entity.Produto;
+import br.com.fabiofnc.apileilao.entity.Proposta;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString(exclude = "id")
+@NoArgsConstructor
+public class ProdutoDto extends RepresentationModel<ProdutoDto>{
 
     private Long id;
     private String nome;
-    private BigDecimal valorInicial;
     private String descricao;
-    private String negociaçaoDoProduto;
+    private BigDecimal valorInicial;
+    private String negociacaoDoProduto;
     private LocalDate dataDeLeilao;
     private String nomeDoAnunciante;
     private List<Long> idDasPropostas;
+    private Long IdDonoDoProduto;
 
-    public ProdutoDto(Produto produto) {
+	public ProdutoDto(Produto produto) {
         this.id = produto.getId();
         this.nome = produto.getNome();
         this.valorInicial = produto.getValorInicial();
         this.descricao = produto.getDescricao();
-        this.negociaçaoDoProduto = String.valueOf(produto.getNegociaçaoDoProduto());
+        this.negociacaoDoProduto = String.valueOf(produto.getNegociacaoDoProduto());
         this.dataDeLeilao = produto.getDataDeLeilao();
         this.nomeDoAnunciante = produto.getDonoDoProduto().getNome();
         this.idDasPropostas = produto.getPropostas().stream().map(Proposta::getId).collect(Collectors.toList());
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public BigDecimal getValorInicial() {
-        return valorInicial;
-    }
-
-    public String getNegociaçaoDoProduto() {
-        return negociaçaoDoProduto;
-    }
-
-    public LocalDate getDataDeLeilao() {
-        return dataDeLeilao;
-    }
-
-    public String getNomeDoAnunciante() {
-        return nomeDoAnunciante;
-    }
-
-    public List<Long> getIdDasPropostas() {
-        return idDasPropostas;
-    }
-
-    public static Page<ProdutoDto> converterTodos(Page<Produto> produtos) {
-        return produtos.map(ProdutoDto::new);
+        this.IdDonoDoProduto = produto.getId();
     }
 
 }

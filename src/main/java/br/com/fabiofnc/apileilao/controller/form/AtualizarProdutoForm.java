@@ -1,12 +1,20 @@
 package br.com.fabiofnc.apileilao.controller.form;
 
-import br.com.fabiofnc.apileilao.entity.Produto;
-import br.com.fabiofnc.apileilao.repository.ProdutoRepository;
+import java.math.BigDecimal;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
+import br.com.fabiofnc.apileilao.entity.Produto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AtualizarProdutoForm {
 
     @NotBlank
@@ -14,36 +22,6 @@ public class AtualizarProdutoForm {
     @NotNull
     private BigDecimal valorInicial;
     private String descricao;
-
-    public AtualizarProdutoForm(String nome, BigDecimal valorInicial, String descricao) {
-        this.nome = nome;
-        this.valorInicial = valorInicial;
-        this.descricao = descricao;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public BigDecimal getValorInicial() {
-        return valorInicial;
-    }
-
-    public void setValorInicial(BigDecimal valorInicial) {
-        this.valorInicial = valorInicial;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     public void atualizar(Produto produto) {
         produto.setNome(this.nome);

@@ -1,11 +1,19 @@
 package br.com.fabiofnc.apileilao.controller.dto;
 
 import br.com.fabiofnc.apileilao.entity.Proposta;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import org.springframework.data.domain.Page;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
 
-public class PropostaDto {
+@Getter
+@Setter
+@NoArgsConstructor
+public class PropostaDto extends RepresentationModel<PropostaDto>{
 
     private Long id;
     private BigDecimal valor;
@@ -21,30 +29,6 @@ public class PropostaDto {
         this.mensagem = proposta.getMensagem();
         this.idDoProdutoRelacionado = proposta.getProduto().getId();
         this.idDoUsuarioRelacionado = proposta.getUsuario().getId();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public Long getIdDoProdutoRelacionado() {
-        return idDoProdutoRelacionado;
-    }
-
-    public Long getIdDoUsuarioRelacionado() {
-        return idDoUsuarioRelacionado;
     }
 
     public static Page<PropostaDto> converterTodas(Page<Proposta> propostas) {

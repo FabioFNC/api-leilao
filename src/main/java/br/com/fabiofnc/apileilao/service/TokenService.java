@@ -10,7 +10,6 @@ import br.com.fabiofnc.apileilao.entity.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
 
 @Service
 public class TokenService {
