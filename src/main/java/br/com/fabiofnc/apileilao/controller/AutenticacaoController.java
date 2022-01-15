@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import br.com.fabiofnc.apileilao.controller.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ import br.com.fabiofnc.apileilao.service.TokenService;
 
 @RestController
 @RequestMapping("/api/auth")
+@Profile(value = "prod")
 public class AutenticacaoController {
 
     @Autowired
