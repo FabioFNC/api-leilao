@@ -5,8 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.fabiofnc.apileilao.controller.dto.ProdutoDto;
+import br.com.fabiofnc.apileilao.controller.dto.converter.custom.ProdutoConverter;
 import br.com.fabiofnc.apileilao.controller.form.AtualizarProdutoForm;
+import br.com.fabiofnc.apileilao.entity.NegociaçaoDoProduto;
 import br.com.fabiofnc.apileilao.entity.Produto;
+import br.com.fabiofnc.apileilao.exception.EstagioDaNegociacaoException;
 import br.com.fabiofnc.apileilao.exception.PropostaNaoEncontradaException;
 import br.com.fabiofnc.apileilao.repository.ProdutoRepository;
 
@@ -15,9 +19,12 @@ public class ProdutoService {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ProdutoConverter converter;
 		
-	public Page<Produto> findAll(Pageable paginacao) {
-		return produtoRepository.findAll(paginacao);
+	public Page<ProdutoDto> findAll(Pageable paginacao) {
+		return produtoRepository.findAll(paginacao).map(p -> converter.convertEntityToDTO(p));
 	}
 	
 	public Produto findById(Long id) {
@@ -36,6 +43,14 @@ public class ProdutoService {
 
 	public void delete(Long id) {
 		produtoRepository.delete(findById(id));
+	}
+
+	public void fecharNegociacaoDoProduto(Long id) {
+		Produto produto = findById(id);
+		if (produto.getNegociacaoDoProduto() == NegociaçaoDoProduto.ABERTO) {
+			produto.setNegociacaoDoProduto(NegociaçaoDoProduto.FECHADO);
+			save(produto);
+		} else throw new EstagioDaNegociacaoException("Negociacao já está fechada");
 	}
 	
 

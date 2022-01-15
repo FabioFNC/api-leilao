@@ -8,8 +8,13 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serial;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "perfis")
 public class Perfil implements GrantedAuthority {
@@ -20,22 +25,6 @@ public class Perfil implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeDoPerfil;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNomeDoPerfil() {
-        return nomeDoPerfil;
-    }
-
-    public void setNomeDoPerfil(String nomeDoPerfil) {
-        this.nomeDoPerfil = nomeDoPerfil;
-    }
 
     @Override
     public String getAuthority() {

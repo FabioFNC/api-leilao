@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.fabiofnc.apileilao.exception.EstagioDaNegociacaoException;
 import br.com.fabiofnc.apileilao.exception.ExceptionResponse;
 import br.com.fabiofnc.apileilao.exception.PropostaInvalida;
 import br.com.fabiofnc.apileilao.exception.PropostaNaoEncontradaException;
@@ -34,6 +35,13 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     
     @ExceptionHandler(PropostaInvalida.class)
     public final ResponseEntity<ExceptionResponse> handleByPropostaInvalida(Exception ex, WebRequest webRequest) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(), ex.getMessage(), webRequest.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(EstagioDaNegociacaoException.class)
+    public final ResponseEntity<ExceptionResponse> handleByEstagioDaNegociacaoException(Exception ex, WebRequest webRequest) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(new Date(), ex.getMessage(), webRequest.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
