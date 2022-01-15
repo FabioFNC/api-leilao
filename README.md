@@ -50,3 +50,4 @@ http://localhost:8080/swagger-ui/
 - [X] 🗂️ CRUD das entidades
 - [X] 💾 Paginação e ordenação de recursos
 - [X] 🗃️ Documentação
+- [X] 🕸️ Hateoas
