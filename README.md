@@ -34,15 +34,25 @@ Além disto é bom ter um editor para trabalhar com o código como o [IntelliJ](
 $ git clone https://github.com/FabioFNC/api-leilao.git
 
 # Lembre-se que o servidor inciará na porta:8080 - acesse <http://localhost:8080>
+# Caso queira trocar a porta, basta trocar o server.port=8080 para uma do seu interesse no application.properties.
 ```
+
+## 🤔 Como iniciar a aplicação?
+
+Vá ao diretório raiz da aplicação e dê um: ```mvn clean package```, assim a aplicação iniciará no profile dev, onde o banco de dados será populado com o ```import.sql``` e terá varias outras facilidades para o desenvolvimento.
+
+Caso queira trocar para o profile prod por algum motivo, vá ao diretório raiz da aplicação e dê um: ```mvn -Pprod clean package```, apos isso vá para a pasta target é passe esses parâmetros no terminal: 
+
+```Java -jar -DDATABASE_URL=<URL do seu BD> -DDATABASE_USER=<Usuario do BD> -DDATABASE_PASSWORD=<Senha do usuario> -DJWT_SECRET=<Chave para validaçao do token> -DJWT_EXPIRATION=<Tempo da duração do token> api-leilao.jar```
+
+E pronto! A aplicação já estará rodando lindamente.
 
 ## 📜 Documentação
 
 ```bash
 http://localhost:8080/swagger-ui/
 
-# Lembre-se de gerar o token de autenticação para usar os métodos de requisição DELETE, PUT e POST.
-# Obs.: Os GETTERS estão publicos.
+# Obs.: Não será necessário qualquer autenticação no profile dev. Caso esteja usando o profile prod por qualquer motivo, lembre-se de gerar o token de autenticação para usar os métodos de requisição DELETE, PUT e POST (o GET é livre).
 ```
 
 ## ✨ Features
